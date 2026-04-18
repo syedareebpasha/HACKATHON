@@ -15,68 +15,218 @@
 </head>
 <body>
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HelpHub AI — Community Support Network</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --primary: #0D9488;
+  --primary-hover: #0F766E;
+  --bg-soft: #F1F5F2; /* Image wala light background */
+  --text-dark: #1F2937;
+  --text-muted: #6B7280;
+  --card-shadow: 0 10px 30px rgba(0,0,0,0.04);
+}
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background-color: #fff;
+  color: var(--text-dark);
+}
+
+h1, h2, h3, h4, .fw-bold {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+/* ===== PAGE ROUTING ===== */
+.page { display: none; }
+.page:target { display: block; }
+#page-home { display: block; background: linear-gradient(180deg, #E8F0EE 0%, #FFFFFF 100%); min-height: 100vh; }
+.page:target ~ #page-home { display: none; }
+
+/* ===== NAVBAR ===== */
+.navbar-custom {
+  padding: 15px 0;
+  background: transparent;
+}
+.nav-logo-box {
+  width: 35px; height: 35px; background: var(--primary);
+  border-radius: 8px; color: white; display: flex;
+  align-items: center; justify-content: center; font-weight: 800;
+}
+.nav-link-custom {
+  color: var(--text-muted); text-decoration: none; font-weight: 500; font-size: 0.9rem;
+  padding: 8px 15px; transition: 0.3s;
+}
+.nav-link-custom:hover, .nav-link-custom.active { color: var(--primary); }
+.btn-join {
+  background: var(--primary); color: white; border-radius: 50px;
+  padding: 8px 24px; font-weight: 600; text-decoration: none; font-size: 0.9rem;
+}
+
+/* ===== HERO SECTION ===== */
+.hero-title {
+  font-size: 4.5rem; font-weight: 800; line-height: 1; letter-spacing: -2px; margin-bottom: 25px;
+}
+.hero-desc { color: var(--text-muted); font-size: 1.05rem; max-width: 500px; line-height: 1.6; }
+
+/* Stat Cards */
+.stat-card-row { margin-top: 40px; }
+.stat-card {
+  background: white; border-radius: 15px; padding: 25px;
+  box-shadow: var(--card-shadow); border: 1px solid rgba(0,0,0,0.03);
+  height: 100%;
+}
+.stat-label { font-size: 0.7rem; font-weight: 800; text-transform: uppercase; color: var(--primary); letter-spacing: 1px; margin-bottom: 10px; display: block; }
+.stat-value { font-size: 2.2rem; font-weight: 800; margin-bottom: 10px; }
+.stat-text { font-size: 0.85rem; color: var(--text-muted); line-height: 1.4; }
+
+/* Dark Ecosystem Card */
+.eco-card {
+  background: #0F1F1C; border-radius: 30px; padding: 40px; color: white;
+  position: relative; overflow: hidden;
+}
+.eco-circle {
+  width: 60px; height: 60px; background: #EAB308; border-radius: 50%;
+  position: absolute; top: 30px; right: 30px; box-shadow: 0 0 30px rgba(234,179,8,0.3);
+}
+.eco-feature {
+  background: rgba(255,255,255,0.9); border-radius: 15px; padding: 20px;
+  color: #1F2937; margin-top: 20px;
+}
+.eco-feature h5 { font-size: 1rem; font-weight: 700; margin-bottom: 8px; }
+.eco-feature p { font-size: 0.85rem; color: #4B5563; margin: 0; }
+
+/* ===== SECTION TITLES ===== */
+.section-tag { font-size: 0.7rem; font-weight: 800; color: var(--primary); text-transform: uppercase; margin-bottom: 10px; display: block; }
+.section-title { font-size: 2.5rem; font-weight: 800; letter-spacing: -1px; }
+
+/* ===== CORE FLOW CARDS ===== */
+.flow-card {
+  background: #FCFDFB; border: 1px solid #F0F2EE; border-radius: 20px; padding: 30px; transition: 0.3s;
+}
+.flow-card:hover { transform: translateY(-5px); box-shadow: var(--card-shadow); }
+.flow-card h4 { font-size: 1.1rem; font-weight: 700; margin-bottom: 15px; }
+.flow-card p { font-size: 0.9rem; color: var(--text-muted); line-height: 1.6; }
+
+/* ===== REQUEST CARDS ===== */
+.req-card {
+  background: white; border-radius: 20px; padding: 25px; border: 1px solid #F0F2EE;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.02);
+}
+.tag-pill {
+  font-size: 0.75rem; padding: 4px 12px; border-radius: 50px; font-weight: 600;
+}
+.tag-web { background: #E6F4F1; color: #0D9488; }
+.tag-urgency { background: #FEF2F2; color: #EF4444; }
+.tag-status { background: #F0FDF4; color: #16A34A; }
+.skill-badge { background: #F3F4F6; color: #4B5563; padding: 4px 10px; border-radius: 6px; font-size: 0.75rem; margin-right: 5px; }
+
+.btn-open {
+  background: #F9FAFB; border: 1px solid #E5E7EB; border-radius: 50px;
+  padding: 10px 20px; font-size: 0.85rem; font-weight: 700; text-decoration: none; color: black;
+}
+
+/* Responsive */
+@media (max-width: 991px) {
+  .hero-title { font-size: 3rem; }
+  .eco-card { margin-top: 40px; }
+}
+</style>
+</head>
+<body>
+
 <!-- PAGE: HOME -->
 <div id="page-home" class="page">
-
-  <!-- NAV -->
-  <nav class="navbar-helphub">
-    <div class="container-max w-100 d-flex align-items-center justify-content-between">
-      <div class="d-flex align-items-center gap-2">
-        <a href="#page-home" class="nav-logo">H</a>
-        <a href="#page-home" class="nav-brand">HelpHub AI</a>
+  
+  <!-- NAVBAR -->
+  <nav class="navbar navbar-expand-lg navbar-custom">
+    <div class="container">
+      <div class="d-flex align-items-center">
+        <div class="nav-logo-box me-2">H</div>
+        <span class="fw-bold">HelpHub AI</span>
       </div>
-      <div class="d-flex align-items-center gap-1 d-none d-md-flex">
+      <div class="mx-auto d-none d-lg-flex">
         <a href="#page-home" class="nav-link-custom active">Home</a>
         <a href="#page-explore" class="nav-link-custom">Explore</a>
         <a href="#page-leaderboard" class="nav-link-custom">Leaderboard</a>
         <a href="#page-ai" class="nav-link-custom">AI Center</a>
       </div>
       <div class="d-flex align-items-center gap-3">
-        <div class="live-signal d-none d-lg-flex">
-          <span class="live-dot"></span>
-          Live community signals
-        </div>
-        <a href="#page-login" class="btn-nav">Join the platform</a>
+        <span class="d-none d-md-block text-muted small">Live community signals</span>
+        <a href="#page-login" class="btn-join">Join the platform</a>
       </div>
     </div>
   </nav>
-  <div class="nav-spacer"></div>
 
-  <!-- HERO -->
-  <div class="container-max py-4">
-    <div class="hero-banner">
-      <div class="row align-items-center g-4">
-        <div class="col-lg-7">
-          <div class="overline overline-white mb-3">
-            <i class="fa-solid fa-bolt me-1"></i> SMIT GRAND CODING NIGHT 2026
+  <!-- HERO SECTION -->
+  <div class="container py-5">
+    <div class="row align-items-center">
+      <!-- Left Content -->
+      <div class="col-lg-7">
+        <div class="section-tag" style="color: #6B7280;">SMIT Grand Coding Night 2026</div>
+        <h1 class="hero-title">Find help faster.<br>Become help that matters.</h1>
+        <p class="hero-desc">HelpHub AI is a community-powered support network for students, mentors, creators, and builders. Ask for help, offer help, track impact, and let AI surface smarter matches across the platform.</p>
+        
+        <div class="d-flex gap-3 mt-4">
+          <a href="#page-explore" class="btn-join py-3 px-4">Open product demo</a>
+          <a href="#page-create" class="btn btn-outline-dark rounded-pill py-3 px-4 fw-bold">Post a request</a>
+        </div>
+
+        <div class="row stat-card-row g-3">
+          <div class="col-md-4">
+            <div class="stat-card">
+              <span class="stat-label">Members</span>
+              <div class="stat-value">384+</div>
+              <p class="stat-text">Students, mentors, and helpers in the loop.</p>
+            </div>
           </div>
-          <h1 class="hero-display mb-4">Find help faster.<br>Become help<br>that matters.</h1>
-          <p class="hero-sub mb-5" style="max-width:480px;">
-            HelpHub AI connects students, mentors, and builders through intelligent request matching, community trust signals, and real-time collaboration tools.
-          </p>
-          <div class="d-flex flex-wrap gap-3">
-            <a href="#page-explore" class="btn-primary-custom">
-              <i class="fa-solid fa-play"></i> Open product demo
-            </a>
-            <a href="#page-create" class="btn-secondary-custom">
-              <i class="fa-solid fa-plus"></i> Post a request
-            </a>
+          <div class="col-md-4">
+            <div class="stat-card">
+              <span class="stat-label">Requests</span>
+              <div class="stat-value">72+</div>
+              <p class="stat-text">Support posts shared across learning journeys.</p>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="stat-card">
+              <span class="stat-label">Solved</span>
+              <div class="stat-value">69+</div>
+              <p class="stat-text">Problems resolved through fast community action.</p>
+            </div>
           </div>
         </div>
-        <div class="col-lg-5 d-none d-lg-block">
-          <div class="dark-feature-card">
-            <div class="overline mb-2" style="font-size:0.7rem;">LIVE PRODUCT FEEL</div>
-            <p class="fw-700 mb-3" style="color:#fff;font-size:1rem;font-weight:700;font-family:'Plus Jakarta Sans',sans-serif;">More than a form.<br>More like an ecosystem.</p>
-            <div class="feature-check"><i class="fa-solid fa-check-circle"></i> AI request intelligence & auto-tagging</div>
-            <div class="feature-check"><i class="fa-solid fa-check-circle"></i> Community trust graph & rankings</div>
-            <div class="feature-check"><i class="fa-solid fa-check-circle"></i> Real-time notifications & DMs</div>
-            <div class="divider" style="border-color:rgba(255,255,255,0.1);"></div>
-            <div class="d-flex align-items-center gap-3 mt-3">
-              <div class="avatar avatar-sm avatar-teal">AK</div>
-              <div class="avatar avatar-sm avatar-amber">HA</div>
-              <div class="avatar avatar-sm avatar-violet">SN</div>
-              <span style="color:rgba(255,255,255,0.5);font-size:0.875rem;">+381 members</span>
-              <span class="ms-auto tag tag-low">100% Trust Score</span>
+      </div>
+
+      <!-- Right Content (Dark Card) -->
+      <div class="col-lg-5">
+        <div class="eco-card">
+          <div class="eco-circle"></div>
+          <div class="section-tag mb-3" style="color: #2DD4BF;">Live Product Feel</div>
+          <h2 class="fw-bold mb-4" style="font-size: 2.2rem; line-height: 1.2;">More than a form.<br>More like an ecosystem.</h2>
+          <p style="color: #94A3B8; font-size: 0.95rem;">A polished multi-page experience inspired by product platforms, with AI summaries, trust scores, and leaderboard momentum.</p>
+          
+          <div class="eco-feature">
+            <h5>AI request intelligence</h5>
+            <p>Auto-categorization, urgency detection, tags, and trend snapshots.</p>
+          </div>
+          <div class="eco-feature">
+            <h5>Community trust graph</h5>
+            <p>Badges, helper rankings, and visible contribution history.</p>
+          </div>
+          <div class="eco-feature">
+            <div class="d-flex justify-content-between align-items-center">
+              <div>
+                <h5>100%</h5>
+                <p>Top trust score active now.</p>
+              </div>
             </div>
           </div>
         </div>
@@ -84,199 +234,129 @@
     </div>
   </div>
 
-  <!-- STATS -->
-  <div class="container-max py-4">
-    <div class="row g-3">
+  <!-- CORE FLOW SECTION -->
+  <div class="container py-5 my-5">
+    <div class="d-flex justify-content-between align-items-end mb-5">
+      <div>
+        <span class="section-tag">Core Flow</span>
+        <h2 class="section-title">From struggling alone to solving together</h2>
+      </div>
+      <a href="#page-ai" class="btn btn-light rounded-pill px-4 py-2 border fw-bold shadow-sm">Try onboarding AI</a>
+    </div>
+    
+    <div class="row g-4">
       <div class="col-md-4">
-        <div class="card-custom text-center card-lift">
-          <div class="stat-number">384+</div>
-          <div class="stat-label">Community Members across Pakistan & remote</div>
+        <div class="flow-card h-100">
+          <h4>Ask for help clearly</h4>
+          <p>Create structured requests with category, urgency, AI suggestions, and tags that attract the right people.</p>
         </div>
       </div>
       <div class="col-md-4">
-        <div class="card-custom text-center card-lift">
-          <div class="stat-number" style="color:var(--primary);">72+</div>
-          <div class="stat-label">Help requests posted across all categories</div>
+        <div class="flow-card h-100">
+          <h4>Discover the right people</h4>
+          <p>Use the explore feed, helper lists, and messaging to move quickly once a match happens.</p>
         </div>
       </div>
       <div class="col-md-4">
-        <div class="card-custom text-center card-lift">
-          <div class="stat-number" style="color:var(--success);">69+</div>
-          <div class="stat-label">Requests successfully solved by the community</div>
+        <div class="flow-card h-100">
+          <h4>Track real contribution</h4>
+          <p>Trust scores, badges, solved requests, and rankings help the community recognize meaningful support.</p>
         </div>
       </div>
     </div>
   </div>
-
-  <!-- CORE FLOW -->
-  <section class="section">
-    <div class="container-max">
-      <div class="d-flex justify-content-between align-items-start mb-5 flex-wrap gap-3">
-        <div>
-          <div class="overline mb-2">CORE FLOW</div>
-          <h2 class="section-title">From struggling alone<br>to solving together</h2>
-        </div>
-        <a href="#page-ai" class="btn-secondary-custom mt-2">
-          <i class="fa-solid fa-robot"></i> Try onboarding AI
-        </a>
-      </div>
-      <div class="row g-4">
-        <div class="col-md-4">
-          <div class="card-custom card-lift h-100">
-            <div class="mb-3">
-              <div style="width:48px;height:48px;background:var(--primary-light);border-radius:14px;display:flex;align-items:center;justify-content:center;">
-                <i class="fa-solid fa-pen-to-square" style="color:var(--primary);font-size:1.2rem;"></i>
-              </div>
-            </div>
-            <div class="overline mb-1">STEP 01</div>
-            <h3 class="card-title-custom mb-2">Ask for help clearly</h3>
-            <p class="body-text" style="font-size:0.9375rem;">Describe your challenge and let AI auto-categorize, detect urgency, suggest tags, and rewrite your request for clarity.</p>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="card-custom card-lift h-100">
-            <div class="mb-3">
-              <div style="width:48px;height:48px;background:var(--primary-light);border-radius:14px;display:flex;align-items:center;justify-content:center;">
-                <i class="fa-solid fa-magnifying-glass" style="color:var(--primary);font-size:1.2rem;"></i>
-              </div>
-            </div>
-            <div class="overline mb-1">STEP 02</div>
-            <h3 class="card-title-custom mb-2">Discover the right people</h3>
-            <p class="body-text" style="font-size:0.9375rem;">Browse a filterable community feed. Filter by category, urgency, skills, and location to find the perfect match for your problem.</p>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="card-custom card-lift h-100">
-            <div class="mb-3">
-              <div style="width:48px;height:48px;background:var(--primary-light);border-radius:14px;display:flex;align-items:center;justify-content:center;">
-                <i class="fa-solid fa-chart-line" style="color:var(--primary);font-size:1.2rem;"></i>
-              </div>
-            </div>
-            <div class="overline mb-1">STEP 03</div>
-            <h3 class="card-title-custom mb-2">Track real contribution</h3>
-            <p class="body-text" style="font-size:0.9375rem;">Earn trust scores, badges, and leaderboard rankings. Every act of helping is tracked, recognized, and celebrated by the community.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
 
   <!-- FEATURED REQUESTS -->
-  <section class="section" style="background:var(--bg-light);">
-    <div class="container-max">
-      <div class="d-flex justify-content-between align-items-start mb-5 flex-wrap gap-3">
-        <div>
-          <div class="overline mb-2">FEATURED REQUESTS</div>
-          <h2 class="section-title">Community problems<br>currently in motion</h2>
-        </div>
-        <a href="#page-explore" class="btn-primary-custom mt-2">
-          View full feed <i class="fa-solid fa-arrow-right"></i>
-        </a>
+  <div class="container py-5">
+    <div class="d-flex justify-content-between align-items-end mb-4">
+      <div>
+        <span class="section-tag">Featured Requests</span>
+        <h2 class="section-title">Community problems currently in motion</h2>
       </div>
-      <div class="row g-4">
+      <a href="#page-explore" class="btn btn-light rounded-pill px-4 py-2 border fw-bold shadow-sm">View full feed</a>
+    </div>
 
-        <!-- Request 1 -->
-        <div class="col-md-4">
-          <div class="card-custom card-lift request-card h-100 d-flex flex-column">
-            <div class="d-flex flex-wrap gap-2 mb-3">
-              <span class="tag tag-category"><i class="fa-solid fa-code fa-xs"></i> Web Dev</span>
-              <span class="tag tag-high"><i class="fa-solid fa-fire fa-xs"></i> High</span>
-              <span class="tag tag-open">Open</span>
+    <div class="row g-4">
+      <!-- Req 1 -->
+      <div class="col-md-4">
+        <div class="req-card h-100 d-flex flex-column">
+          <div class="d-flex gap-2 mb-3">
+            <span class="tag-pill tag-web">Web Development</span>
+            <span class="tag-pill tag-urgency">High</span>
+            <span class="tag-pill tag-status">Open</span>
+          </div>
+          <h5 class="fw-bold mb-3">Need help making my portfolio responsive before demo day</h5>
+          <p class="text-muted small flex-grow-1">My HTML/CSS portfolio breaks on tablets and I need layout guidance before tomorrow evening.</p>
+          <div class="mt-3 mb-4">
+            <span class="skill-badge">HTML/CSS</span>
+            <span class="skill-badge">Responsive</span>
+          </div>
+          <div class="d-flex justify-content-between align-items-center mt-auto">
+            <div>
+              <div class="fw-bold small">Sara Noor</div>
+              <div class="text-muted" style="font-size: 0.75rem;">Karachi • 1 helper interested</div>
             </div>
-            <h4 class="card-title-custom mb-2">Need review on JavaScript quiz app before submission</h4>
-            <p class="body-text mb-3" style="font-size:0.875rem;flex:1;">My quiz app has a scoring bug and the timer resets unexpectedly. Submitting tomorrow morning and really need a second set of eyes on the logic.</p>
-            <div class="d-flex flex-wrap gap-2 mb-3">
-              <span class="tag tag-category" style="font-size:0.75rem;">JavaScript</span>
-              <span class="tag tag-category" style="font-size:0.75rem;">Debugging</span>
-              <span class="tag tag-category" style="font-size:0.75rem;">Review</span>
-            </div>
-            <div class="d-flex align-items-center justify-content-between">
-              <div class="d-flex align-items-center gap-2">
-                <div class="avatar avatar-sm avatar-teal">AK</div>
-                <div>
-                  <div style="font-size:0.875rem;font-weight:600;">Ayesha Khan</div>
-                  <div class="small-text"><i class="fa-solid fa-location-dot fa-xs me-1"></i>Karachi · 3 helpers</div>
-                </div>
-              </div>
-              <a href="#page-detail" class="btn-ghost-custom" style="font-size:0.8125rem;">Open <i class="fa-solid fa-arrow-right fa-xs"></i></a>
-            </div>
+            <a href="#page-detail" class="btn-open">Open details</a>
           </div>
         </div>
+      </div>
 
-        <!-- Request 2 -->
-        <div class="col-md-4">
-          <div class="card-custom card-lift request-card h-100 d-flex flex-column">
-            <div class="d-flex flex-wrap gap-2 mb-3">
-              <span class="tag tag-category"><i class="fa-solid fa-palette fa-xs"></i> Design</span>
-              <span class="tag tag-medium"><i class="fa-solid fa-triangle-exclamation fa-xs"></i> Medium</span>
-              <span class="tag tag-solved"><i class="fa-solid fa-check fa-xs"></i> Solved</span>
+      <!-- Req 2 -->
+      <div class="col-md-4">
+        <div class="req-card h-100 d-flex flex-column">
+          <div class="d-flex gap-2 mb-3">
+            <span class="tag-pill" style="background:#F0F9FF; color:#0369A1;">Design</span>
+            <span class="tag-pill" style="background:#FFFBEB; color:#B45309;">Medium</span>
+            <span class="tag-pill tag-status">Open</span>
+          </div>
+          <h5 class="fw-bold mb-3">Looking for Figma feedback on a volunteer event poster</h5>
+          <p class="text-muted small flex-grow-1">I have a draft poster for a campus community event and want sharper hierarchy and CTA copy.</p>
+          <div class="mt-3 mb-4">
+            <span class="skill-badge">Figma</span>
+            <span class="skill-badge">Poster</span>
+          </div>
+          <div class="d-flex justify-content-between align-items-center mt-auto">
+            <div>
+              <div class="fw-bold small">Ayesha Khan</div>
+              <div class="text-muted" style="font-size: 0.75rem;">Lahore • 1 helper interested</div>
             </div>
-            <h4 class="card-title-custom mb-2">Figma portfolio critique — looking for UX feedback</h4>
-            <p class="body-text mb-3" style="font-size:0.875rem;flex:1;">I've built a 5-screen mobile app portfolio in Figma and need feedback on the overall UX flow and visual hierarchy before I share it with recruiters.</p>
-            <div class="d-flex flex-wrap gap-2 mb-3">
-              <span class="tag tag-category" style="font-size:0.75rem;">Figma</span>
-              <span class="tag tag-category" style="font-size:0.75rem;">UI/UX</span>
-              <span class="tag tag-category" style="font-size:0.75rem;">Portfolio</span>
-            </div>
-            <div class="d-flex align-items-center justify-content-between">
-              <div class="d-flex align-items-center gap-2">
-                <div class="avatar avatar-sm avatar-amber">HA</div>
-                <div>
-                  <div style="font-size:0.875rem;font-weight:600;">Hassan Ali</div>
-                  <div class="small-text"><i class="fa-solid fa-location-dot fa-xs me-1"></i>Lahore · 2 helpers</div>
-                </div>
-              </div>
-              <a href="#page-detail" class="btn-ghost-custom" style="font-size:0.8125rem;">Open <i class="fa-solid fa-arrow-right fa-xs"></i></a>
-            </div>
+            <a href="#page-detail" class="btn-open">Open details</a>
           </div>
         </div>
+      </div>
 
-        <!-- Request 3 -->
-        <div class="col-md-4">
-          <div class="card-custom card-lift request-card h-100 d-flex flex-column">
-            <div class="d-flex flex-wrap gap-2 mb-3">
-              <span class="tag tag-category"><i class="fa-solid fa-briefcase fa-xs"></i> Career</span>
-              <span class="tag tag-low"><i class="fa-solid fa-circle-check fa-xs"></i> Low</span>
-              <span class="tag tag-open">Open</span>
+      <!-- Req 3 -->
+      <div class="col-md-4">
+        <div class="req-card h-100 d-flex flex-column" style="background: #FAFAFA;">
+          <div class="d-flex gap-2 mb-3">
+            <span class="tag-pill tag-web">Web Development</span>
+            <span class="tag-pill tag-urgency">High</span>
+            <span class="tag-pill tag-status">Solved</span>
+          </div>
+          <h5 class="fw-bold mb-3">JavaScript Timer Reset Bug</h5>
+          <p class="text-muted small flex-grow-1">The quiz timer resets every time a user clicks 'next'. Resolved by Ayesha Khan.</p>
+          <div class="mt-3 mb-4">
+            <span class="skill-badge">JS</span>
+            <span class="skill-badge">Logic</span>
+          </div>
+          <div class="d-flex justify-content-between align-items-center mt-auto">
+            <div>
+              <div class="fw-bold small">Hassan Ali</div>
+              <div class="text-muted" style="font-size: 0.75rem;">Karachi • Solved</div>
             </div>
-            <h4 class="card-title-custom mb-2">CV review for first internship application in tech</h4>
-            <p class="body-text mb-3" style="font-size:0.875rem;flex:1;">Applying for my first tech internship and want someone experienced to review my CV for structure, keyword optimization, and overall impression.</p>
-            <div class="d-flex flex-wrap gap-2 mb-3">
-              <span class="tag tag-category" style="font-size:0.75rem;">Career</span>
-              <span class="tag tag-category" style="font-size:0.75rem;">CV Review</span>
-              <span class="tag tag-category" style="font-size:0.75rem;">Internship</span>
-            </div>
-            <div class="d-flex align-items-center justify-content-between">
-              <div class="d-flex align-items-center gap-2">
-                <div class="avatar avatar-sm avatar-violet">SN</div>
-                <div>
-                  <div style="font-size:0.875rem;font-weight:600;">Sara Noor</div>
-                  <div class="small-text"><i class="fa-solid fa-location-dot fa-xs me-1"></i>Remote · 1 helper</div>
-                </div>
-              </div>
-              <a href="#page-detail" class="btn-ghost-custom" style="font-size:0.8125rem;">Open <i class="fa-solid fa-arrow-right fa-xs"></i></a>
-            </div>
+            <a href="#page-detail" class="btn-open">View Solution</a>
           </div>
         </div>
-
       </div>
     </div>
-  </section>
+  </div>
 
-  <!-- FOOTER -->
-  <footer class="footer">
-    <div class="container-max">
-      <div class="d-flex align-items-center justify-content-center gap-2 mb-2">
-        <div class="nav-logo" style="width:28px;height:28px;font-size:0.75rem;">H</div>
-        <span style="color:rgba(255,255,255,0.7);font-weight:600;font-family:'Plus Jakarta Sans',sans-serif;">HelpHub AI</span>
-      </div>
-      HelpHub AI is built as a premium-feel, multi-page community support product for SMIT Grand Coding Night 2026. Built with pure HTML, CSS &amp; Bootstrap.
-    </div>
+  <footer class="text-center py-5 mt-5 text-muted small border-top">
   </footer>
 
-</div><!-- /page-home -->
-
-
+</div>
+</body>
+</html>
 <!-- PAGE: LOGIN -->
 <div id="page-login" class="page">
   <div class="row g-0" style="min-height:100vh;">
